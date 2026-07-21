@@ -202,9 +202,19 @@
     }
 
     try {
-      P.addPath(map, "/_payload.json", "nuxt:heuristic", baseOrigin, bases);
+      // Nuxt 3 payload — 페이지/페이로드에 실제 참조가 있을 때만 추가
+      if (framework.nuxt) {
+        const html = (document.documentElement?.innerHTML || "").slice(0, 200_000);
+        const hasPayloadRef =
+          /_payload\.json|__NUXT_DATA__|data-nuxt-data/i.test(html) ||
+          !!bridge?.payloads?.__NUXT_DATA_SCRIPT__ ||
+          !!document.getElementById("__NUXT_DATA__");
+        if (hasPayloadRef) {
+          P.addPath(map, "/_payload.json", "nuxt:payload-ref", baseOrigin, bases);
+        }
+      }
       const buildId = bridge?.payloads?.__NUXT__?.config?.app?.buildId;
-      if (buildId) {
+      if (buildId && framework.nuxt) {
         P.addPath(
           map,
           `/_nuxt/builds/meta/${buildId}.json`,

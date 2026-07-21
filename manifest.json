@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "JRList",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Nuxt.js / Vue.js 페이지에서 URL·라우트·API 경로를 추출하는 도구 (JS URL Recon List)",
   "permissions": ["activeTab", "scripting", "storage", "clipboardWrite"],
   "host_permissions": ["http://*/*", "https://*/*"],
