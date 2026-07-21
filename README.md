@@ -1,69 +1,81 @@
+<p align="center">
+  <img src="assets/cover.png" alt="JRList cover" width="720" />
+</p>
+
 # JRList
 
-**J**S URL **R**econ **List** — Nuxt.js / Vue.js 페이지에서 URL·라우트·API 경로를 추출해 목록화하는 Chrome Extension (Manifest V3).
+**J**S URL **R**econ **List** — a Chrome Extension (Manifest V3) that extracts URLs, routes, and API paths from **Nuxt.js** and **Vue.js** web pages.
 
-펜테스트·버그바운티·프론트엔드 리콘용 보조 도구입니다.
+Useful for authorized penetration testing, bug bounty, and frontend reconnaissance.
 
-> 허가받은 대상에만 사용하세요.
+> **Use only on targets you are authorized to test.**
+
+[한국어 README](./README.ko.md)
 
 ---
 
 ## Features
 
-- Nuxt / Vue 시그니처 감지 (`__NUXT__`, `__NUXT_DATA__`, Vue Router 등)
-- DOM · 인라인 JS · `_nuxt` 번들 · Nuxt payload 에서 URL 수집
-- `baseURL` / `apiBase` / Nuxt `app.baseURL` 기준 상대 경로 결합
-- 카테고리: `base`, `api`, `nuxt`, `auth`, `admin`, `absolute`, `path`
-- 필터 · 클립보드 복사 · TXT / JSON 내보내기
-- 클릭 시에만 스크립트 주입 (상시 content script 없음)
+- Detect Nuxt / Vue signatures (`__NUXT__`, `__NUXT_DATA__`, Vue Router, etc.)
+- Collect URLs from DOM, inline JS, `_nuxt` bundles, and Nuxt payloads
+- Resolve relative paths using discovered `baseURL` / `apiBase` / Nuxt `app.baseURL`
+- Categories: `base`, `api`, `nuxt`, `auth`, `admin`, `absolute`, `path`
+- Search, filter, clipboard copy, TXT / JSON export
+- On-demand script injection only (no always-on content scripts)
 
 ---
 
 ## Install
+
+### From source (recommended for development)
 
 ```bash
 git clone https://github.com/KaiHT-Ladiant/JRList.git
 cd JRList
 ```
 
-1. Chrome → `chrome://extensions`
-2. **개발자 모드** ON
-3. **압축해제된 확장 프로그램을 로드합니다**
-4. 이 저장소 루트(`manifest.json` 위치) 선택
+1. Open `chrome://extensions`
+2. Enable **Developer mode**
+3. Click **Load unpacked**
+4. Select the repository root (folder containing `manifest.json`)
+
+### From release (CRX)
+
+Download `JRList.crx` from [Releases](https://github.com/KaiHT-Ladiant/JRList/releases).
+
+> Recent Chrome versions may block drag-and-drop installation of unsigned local CRX files. If installation fails, use **Load unpacked** instead.
 
 ---
 
 ## Usage
 
-1. 대상 페이지를 연다
-2. 툴바 **JRList** 아이콘 클릭
-3. **스캔**
-4. 필터 후 복사 / TXT / JSON 내보내기
+1. Open a target page
+2. Click the **JRList** toolbar icon
+3. Click **Scan**
+4. Filter results and export as copy / TXT / JSON
 
-| 옵션 | 설명 |
-|------|------|
-| JS 번들 스캔 | `script[src]` fetch 후 URL 추가 추출 (기본 ON) |
+| Option | Description |
+|--------|-------------|
+| JS bundle scan | Fetch `script[src]` files and extract additional URL patterns (ON by default) |
 
 ---
 
-## Pack (CRX / ZIP)
+## Build CRX / ZIP locally
 
 ```bash
 py -m pip install cryptography
 py scripts/pack_crx.py
 ```
 
-| 출력 | 설명 |
-|------|------|
-| `dist/JRList.crx` | CRX3 (로컬 서명) |
-| `dist/JRList.zip` | 소스 ZIP |
-| `keys/extension.pem` | 서명키 — **커밋/공유 금지** |
-
-로컬 CRX 드래그 설치는 Chrome에서 차단될 수 있습니다. 개발 시에는 압축해제 로드를 권장합니다.
+| Output | Description |
+|--------|-------------|
+| `dist/JRList.crx` | CRX3 package (locally signed) |
+| `dist/JRList.zip` | Source ZIP archive |
+| `keys/extension.pem` | Signing key — **never commit or share** |
 
 ---
 
-## Structure
+## Project structure
 
 ```text
 JRList/
@@ -74,37 +86,39 @@ JRList/
 ├── lib/page-bridge.js
 ├── popup/
 ├── icons/
+├── assets/cover.png
 ├── scripts/pack_crx.py
 ├── scripts/generate_icons.py
-├── LICENSE
-└── README.md
+├── README.md
+├── README.ko.md
+└── LICENSE
 ```
 
 ---
 
 ## Permissions
 
-| Permission | 용도 |
-|------------|------|
-| `activeTab` | 현재 탭 스캔 |
-| `scripting` | 스크립트 주입 |
-| `storage` | 세션 결과 저장 |
-| `clipboardWrite` | 복사 |
-| `host_permissions` (http/https) | 페이지·번들 접근 |
+| Permission | Purpose |
+|------------|---------|
+| `activeTab` | Scan the current tab |
+| `scripting` | Inject scan scripts |
+| `storage` | Store session scan results |
+| `clipboardWrite` | Copy URL lists |
+| `host_permissions` (`http/https`) | Access pages and JS bundles |
 
 ---
 
 ## Notes
 
-- Cross-origin JS는 CORS로 읽지 못할 수 있습니다
-- 난독화·런타임 조합 URL은 정적 파싱으로 놓칠 수 있습니다
-- AV/EDR 오탐 가능 — 사내 예외 또는 스토어 서명 배포 권장
+- Cross-origin JS bundles may be unreadable due to CORS
+- Obfuscated or runtime-only URLs may be missed by static parsing
+- AV/EDR false positives are possible for recon-style extensions
 
 ---
 
 ## Contributing
 
-Issue / PR welcome.
+Issues and pull requests are welcome.
 
 ### Contributors
 
@@ -114,7 +128,7 @@ Issue / PR welcome.
 
 ## Disclaimer
 
-허가된 보안 연구·테스트 목적입니다. 오남용으로 인한 결과에 대해 책임지지 않습니다.
+This tool is intended for **authorized security research and testing** only. The authors and contributors are not responsible for misuse.
 
 ## License
 
