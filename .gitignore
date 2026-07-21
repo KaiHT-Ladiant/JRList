@@ -1,0 +1,33 @@
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.cursor/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs / temp
+*.log
+tmp/
+temp/
+.cache/
+
+# Packaging artifacts
+*.crx
+*.zip
+dist/
+build/
+node_modules/
+
+# Signing keys — never commit
+keys/
+*.pem
+*.key
+
+# Secrets
+.env
+.env.*

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JRList</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="top">
+      <div class="title-row">
+        <strong class="title">JRList</strong>
+        <span id="frameworkBadges" class="badges"></span>
+      </div>
+      <p class="subtitle">JS URL Recon List · Nuxt / Vue</p>
+
+      <div class="toolbar">
+        <button id="scanBtn" class="btn primary" type="button">스캔</button>
+        <button id="copyBtn" class="btn" type="button" disabled>복사</button>
+        <button id="exportJsonBtn" class="btn" type="button" disabled>JSON</button>
+        <button id="exportTxtBtn" class="btn" type="button" disabled>TXT</button>
+      </div>
+
+      <div class="filters">
+        <input id="searchInput" type="search" placeholder="URL 필터" autocomplete="off" />
+        <select id="categorySelect">
+          <option value="all">전체</option>
+          <option value="base">Base</option>
+          <option value="api">API</option>
+          <option value="nuxt">Nuxt</option>
+          <option value="auth">Auth</option>
+          <option value="admin">Admin</option>
+          <option value="absolute">Absolute</option>
+          <option value="path">Path</option>
+        </select>
+      </div>
+
+      <label class="check">
+        <input id="fetchScriptsToggle" type="checkbox" checked />
+        JS 번들 스캔
+      </label>
+
+      <div id="status" class="status">현재 탭을 연 뒤 스캔을 누르세요.</div>
+      <div id="stats" class="stats hidden"></div>
+    </div>
+
+    <div class="list-wrap">
+      <ul id="urlList" class="url-list"></ul>
+    </div>
+
+    <div class="footer">
+      <span id="pageUrl" class="page-url"></span>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

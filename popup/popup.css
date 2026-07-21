@@ -1,0 +1,274 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 380px;
+  background: #0f1419;
+  color: #e8eef4;
+  font-family: "Segoe UI", "Malgun Gothic", sans-serif;
+  font-size: 13px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  max-height: 560px;
+}
+
+.top {
+  padding: 12px 12px 8px;
+  border-bottom: 1px solid #2f3b4a;
+  flex-shrink: 0;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.title {
+  font-size: 14px;
+}
+
+.subtitle {
+  margin: 4px 0 10px;
+  color: #8b9aab;
+  font-size: 11px;
+}
+
+.badges {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: #2a3542;
+  color: #8b9aab;
+  border: 1px solid #2f3b4a;
+}
+
+.badge.on {
+  color: #d8f5e8;
+  background: rgba(62, 207, 142, 0.15);
+  border-color: rgba(62, 207, 142, 0.35);
+}
+
+.toolbar {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.btn {
+  appearance: none;
+  border: 1px solid #2f3b4a;
+  background: #1a222c;
+  color: #e8eef4;
+  border-radius: 8px;
+  padding: 10px 8px;
+  font-size: 13px;
+  cursor: pointer;
+  min-height: 38px;
+}
+
+.btn:hover:not(:disabled) {
+  background: #222c38;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn.primary {
+  background: #3d9cf0;
+  border-color: #2f7ec4;
+  color: #fff;
+  font-weight: 700;
+}
+
+.btn.primary:hover:not(:disabled) {
+  background: #2f7ec4;
+}
+
+.filters {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+#searchInput,
+#categorySelect {
+  background: #1a222c;
+  color: #e8eef4;
+  border: 1px solid #2f3b4a;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 12px;
+}
+
+#searchInput {
+  flex: 1;
+  min-width: 0;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #8b9aab;
+  font-size: 11px;
+  margin-bottom: 8px;
+}
+
+.status {
+  background: #1a222c;
+  border: 1px solid #2f3b4a;
+  border-radius: 8px;
+  padding: 8px 10px;
+  color: #8b9aab;
+  font-size: 12px;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.status.error {
+  color: #ffc9c9;
+  border-color: rgba(232, 93, 93, 0.45);
+  background: rgba(232, 93, 93, 0.1);
+}
+
+.status.ok {
+  color: #d7f5e7;
+  border-color: rgba(62, 207, 142, 0.35);
+  background: rgba(62, 207, 142, 0.08);
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.stat {
+  background: #1a222c;
+  border: 1px solid #2f3b4a;
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-size: 11px;
+  color: #8b9aab;
+}
+
+.stat strong {
+  color: #e8eef4;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.list-wrap {
+  flex: 1;
+  min-height: 180px;
+  overflow: auto;
+  background: #1a222c;
+}
+
+.url-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.url-list li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px;
+  padding: 8px 10px;
+  border-bottom: 1px solid #2f3b4a;
+}
+
+.url-list li:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.cat {
+  font-size: 10px;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #2a3542;
+  color: #8b9aab;
+  height: fit-content;
+  margin-top: 2px;
+}
+
+.cat.base {
+  color: #c5b4ff;
+  background: rgba(167, 139, 250, 0.18);
+}
+.cat.api {
+  color: #9fd0ff;
+  background: rgba(61, 156, 240, 0.15);
+}
+.cat.nuxt {
+  color: #9ff0c8;
+  background: rgba(66, 184, 131, 0.15);
+}
+.cat.auth {
+  color: #ffe29a;
+  background: rgba(230, 184, 77, 0.15);
+}
+.cat.admin {
+  color: #ffb4b4;
+  background: rgba(232, 93, 93, 0.15);
+}
+
+.url-text {
+  display: block;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 11px;
+  word-break: break-all;
+  color: #e8eef4;
+  text-decoration: none;
+}
+
+.url-text:hover {
+  color: #3d9cf0;
+}
+
+.sources {
+  margin-top: 3px;
+  color: #8b9aab;
+  font-size: 10px;
+  word-break: break-all;
+}
+
+.footer {
+  padding: 6px 12px;
+  border-top: 1px solid #2f3b4a;
+  color: #8b9aab;
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+.page-url {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.empty {
+  padding: 24px 12px;
+  text-align: center;
+  color: #8b9aab;
+}
