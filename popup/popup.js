@@ -38,6 +38,7 @@
     const items = [
       { label: "Nuxt", on: !!framework?.nuxt },
       { label: "Vue", on: !!framework?.vue },
+      { label: "Next", on: !!framework?.next },
     ];
     for (const item of items) {
       const span = document.createElement("span");
@@ -148,6 +149,7 @@
     const fw = [];
     if (result.framework?.nuxt) fw.push("Nuxt");
     if (result.framework?.vue) fw.push("Vue");
+    if (result.framework?.next) fw.push("Next");
     const fwText = fw.length ? fw.join(" + ") + " 감지" : "프레임워크 미감지 (일반 스캔)";
     setStatus(
       `${fwText} · ${result.stats.total}개 URL · ${result.durationMs}ms`,
@@ -223,10 +225,19 @@
               window.Vue ||
               document.querySelector("[data-v-], #__nuxt")
             ),
+            next: !!(
+              window.__NEXT_DATA__ ||
+              document.getElementById("__NEXT_DATA__") ||
+              window.next?.router ||
+              typeof window.__next_f !== "undefined" ||
+              document.querySelector('script[src*="/_next/"], #__next')
+            ),
             hasNuxtData: !!document.getElementById("__NUXT_DATA__"),
             hasNuxtPayload: !!window.__NUXT__,
+            hasNextData: !!(window.__NEXT_DATA__ || document.getElementById("__NEXT_DATA__")),
           };
           const payloads = {};
+          const nextMeta = { buildId: null, basePath: null, assetPrefix: null, page: null };
           try {
             if (window.__NUXT__) payloads.__NUXT__ = JSON.parse(JSON.stringify(window.__NUXT__));
           } catch (_) {
@@ -238,10 +249,25 @@
             const el = document.getElementById("__NUXT_DATA__");
             if (el?.textContent) payloads.__NUXT_DATA_SCRIPT__ = JSON.parse(el.textContent);
           } catch (_) {}
+          try {
+            const nd =
+              window.__NEXT_DATA__ ||
+              (document.getElementById("__NEXT_DATA__")
+                ? JSON.parse(document.getElementById("__NEXT_DATA__").textContent)
+                : null);
+            if (nd) {
+              payloads.__NEXT_DATA__ = nd;
+              nextMeta.buildId = nd.buildId || null;
+              nextMeta.basePath = nd.basePath || null;
+              nextMeta.assetPrefix = nd.assetPrefix || null;
+              nextMeta.page = nd.page || null;
+            }
+          } catch (_) {}
           return {
             framework,
             payloads,
             routes: [],
+            nextMeta,
             origin: location.origin,
             href: location.href,
           };
@@ -268,7 +294,7 @@
       pageUrlEl.textContent = tab.url;
 
       await ensureContentScript(tab.id);
-      setStatus("Nuxt/Vue 전역 수집 중…");
+      setStatus("프레임워크 전역 수집 중…");
       const bridge = await harvestMainWorld(tab.id);
 
       setStatus("URL 추출 중…");

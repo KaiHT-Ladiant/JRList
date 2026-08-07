@@ -223,6 +223,10 @@ body {
   color: #9ff0c8;
   background: rgba(66, 184, 131, 0.15);
 }
+.cat.next {
+  color: #e8e8e8;
+  background: rgba(255, 255, 255, 0.12);
+}
 .cat.auth {
   color: #ffe29a;
   background: rgba(230, 184, 77, 0.15);

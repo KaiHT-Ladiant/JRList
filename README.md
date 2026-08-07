@@ -4,7 +4,7 @@
 
 # JRList
 
-**J**S URL **R**econ **List** — a Chrome Extension (Manifest V3) that extracts URLs, routes, and API paths from **Nuxt.js** and **Vue.js** web pages.
+**J**S URL **R**econ **List** — a Chrome Extension (Manifest V3) that extracts URLs, routes, and API paths from **Nuxt.js**, **Vue.js**, and **Next.js** web pages.
 
 Useful for authorized penetration testing, bug bounty, and frontend reconnaissance.
 
@@ -16,10 +16,10 @@ Useful for authorized penetration testing, bug bounty, and frontend reconnaissan
 
 ## Features
 
-- Detect Nuxt / Vue signatures (`__NUXT__`, `__NUXT_DATA__`, Vue Router, etc.)
-- Collect URLs from DOM, inline JS, `_nuxt` bundles, and Nuxt payloads
-- Resolve relative paths using discovered `baseURL` / `apiBase` / Nuxt `app.baseURL`
-- Categories: `base`, `api`, `nuxt`, `auth`, `admin`, `absolute`, `path`
+- Detect Nuxt / Vue / Next signatures (`__NUXT__`, `__NEXT_DATA__`, Vue Router, etc.)
+- Collect URLs from DOM, inline JS, `_nuxt` / `_next` bundles, and framework payloads
+- Resolve relative paths using discovered `baseURL` / `apiBase` / Nuxt `app.baseURL` / Next `basePath`
+- Categories: `base`, `api`, `nuxt`, `next`, `auth`, `admin`, `absolute`, `path`
 - Search, filter, clipboard copy, TXT / JSON export
 - On-demand script injection only (no always-on content scripts)
 

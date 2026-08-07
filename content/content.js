@@ -85,7 +85,7 @@
       unique.map(async (url) => {
         try {
           const sameOrigin = new URL(url).origin === new URL(baseOrigin).origin;
-          if (!sameOrigin && !/(_nuxt|chunk|entry)/i.test(url)) {
+          if (!sameOrigin && !/(_nuxt|_next|chunk|entry)/i.test(url)) {
             return;
           }
           const res = await fetch(url, { credentials: "omit", cache: "force-cache" });
@@ -120,12 +120,14 @@
     if (!bridge) return;
     if (bridge.payloads) {
       for (const [name, data] of Object.entries(bridge.payloads)) {
-        P.walkObject(data, map, "nuxt:" + name, baseOrigin, 0, new WeakSet(), bases);
+        const prefix =
+          /NEXT|next_f|nextRouter/i.test(name) ? "next:" + name : "fw:" + name;
+        P.walkObject(data, map, prefix, baseOrigin, 0, new WeakSet(), bases);
         try {
           P.extractFromText(
             JSON.stringify(data),
             map,
-            "nuxt-json:" + name,
+            prefix + ":json",
             baseOrigin,
             bases
           );
@@ -134,8 +136,62 @@
     }
     if (Array.isArray(bridge.routes)) {
       for (const route of bridge.routes) {
-        P.addPath(map, route, "vue-router", baseOrigin, bases);
+        const src = bridge.framework?.next ? "next-router" : "vue-router";
+        P.addPath(map, route, src, baseOrigin, bases);
       }
+    }
+  }
+
+  function applyNextMeta(map, bridge, baseOrigin, bases) {
+    const meta = bridge?.nextMeta || {};
+    const data =
+      bridge?.payloads?.__NEXT_DATA__ ||
+      bridge?.payloads?.__NEXT_DATA_SCRIPT__ ||
+      null;
+
+    const basePath = meta.basePath || data?.basePath;
+    const assetPrefix = meta.assetPrefix || data?.assetPrefix;
+    const buildId = meta.buildId || data?.buildId;
+    const page = meta.page || data?.page;
+
+    if (basePath && basePath !== "/") {
+      P.addBase(bases, map, basePath, "next:basePath", baseOrigin);
+    }
+    if (assetPrefix) {
+      P.addBase(bases, map, assetPrefix, "next:assetPrefix", baseOrigin);
+    }
+
+    // runtimeConfig / env often hold API bases (Pages Router)
+    try {
+      const rt = data?.runtimeConfig;
+      if (rt && typeof rt === "object") {
+        for (const [k, v] of Object.entries(rt)) {
+          if (typeof v === "string" && /base|api|url|cdn|host/i.test(k)) {
+            if (/^https?:\/\//i.test(v) || v.startsWith("/")) {
+              P.addBase(bases, map, v, "next:runtimeConfig:" + k, baseOrigin);
+            }
+          }
+        }
+        const pub = rt.public;
+        if (pub && typeof pub === "object") {
+          for (const [k, v] of Object.entries(pub)) {
+            if (typeof v === "string" && /base|api|url|cdn|host/i.test(k)) {
+              if (/^https?:\/\//i.test(v) || v.startsWith("/")) {
+                P.addBase(bases, map, v, "next:runtimeConfig.public:" + k, baseOrigin);
+              }
+            }
+          }
+        }
+      }
+    } catch (_) {}
+
+    // Pages Router data URL — only when __NEXT_DATA__ + buildId + page exist
+    // (avoid fake heuristics like unconditional /_payload.json)
+    if (buildId && page && typeof page === "string") {
+      const bp = (basePath && basePath !== "/" ? basePath.replace(/\/+$/, "") : "") || "";
+      const pagePath = page === "/" ? "/index" : page.replace(/\/$/, "");
+      const dataPath = `${bp}/_next/data/${buildId}${pagePath}.json`;
+      P.addPath(map, dataPath, "next:data-ref", baseOrigin, bases);
     }
   }
 
@@ -155,13 +211,11 @@
     const startedAt = Date.now();
     const bridge = opts.bridge || null;
 
+    const htmlSnap = (document.documentElement?.innerHTML || "").slice(0, 12000);
     const framework = bridge?.framework || {
-      nuxt: /__nuxt|__NUXT__|data-nuxt/i.test(
-        (document.documentElement?.innerHTML || "").slice(0, 12000)
-      ),
-      vue: /data-v-|__nuxt|nuxt/i.test(
-        (document.documentElement?.innerHTML || "").slice(0, 12000)
-      ),
+      nuxt: /__nuxt|__NUXT__|data-nuxt/i.test(htmlSnap),
+      vue: /data-v-|__nuxt|nuxt/i.test(htmlSnap),
+      next: /__NEXT_DATA__|\/_next\/|data-nextjs/i.test(htmlSnap),
     };
 
     // Nuxt app.baseURL / cdnURL 명시 추출
@@ -181,6 +235,7 @@
       }
     } catch (_) {}
 
+    applyNextMeta(map, bridge, baseOrigin, bases);
     applyBridge(map, bridge, baseOrigin, bases);
     collectDomUrls(map, baseOrigin, bases);
     collectInlineScripts(map, baseOrigin, bases);
