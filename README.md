@@ -43,7 +43,20 @@ cd JRList
 
 Download `JRList.crx` from [Releases](https://github.com/KaiHT-Ladiant/JRList/releases).
 
-> Recent Chrome versions may block drag-and-drop installation of unsigned local CRX files. If installation fails, use **Load unpacked** instead.
+> Recent Chrome versions may block drag-and-drop installation of unsigned local CRX files (`CRX_REQUIRED_PROOF_MISSING`). That is expected for non–Web Store packages. Use **Load unpacked**, or publish via Chrome Web Store (below).
+
+### Chrome Web Store (official signing)
+
+Local CRX signing is **not** enough for normal Chrome installs. To get Google’s store signature:
+
+1. Build `dist/JRList.zip` with `py scripts/pack_crx.py`
+2. Open [Chrome Web Store Developer Console](https://chrome.google.com/webstore/devconsole) → **New item**
+3. Upload the ZIP and submit for review (Public or Unlisted)
+
+See the full checklist, listing draft text, and permission justifications:
+
+- [docs/chrome-web-store.md](./docs/chrome-web-store.md)
+- [PRIVACY.md](./PRIVACY.md) (privacy policy URL for the listing)
 
 ---
 

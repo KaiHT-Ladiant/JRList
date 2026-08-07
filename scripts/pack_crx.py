@@ -182,7 +182,8 @@ def pack() -> None:
     print("설치 참고:")
     print("  - 로컬 CRX는 Chrome 정책에 따라 드래그 설치가 막힐 수 있습니다.")
     print("  - 가장 안정적: chrome://extensions → 개발자 모드 → 압축해제 로드")
-    print("  - 또는 기업 정책(ExtensionInstallForcelist) / Chrome Web Store 배포")
+    print("  - Chrome Web Store 항목 추가 시 업로드: dist/JRList.zip (CRX 아님)")
+    print("  - 가이드: docs/chrome-web-store.md")
 
 
 if __name__ == "__main__":

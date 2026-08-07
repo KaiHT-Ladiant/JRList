@@ -43,7 +43,20 @@ cd JRList
 
 [Releases](https://github.com/KaiHT-Ladiant/JRList/releases)에서 `JRList.crx`를 받습니다.
 
-> 최근 Chrome은 서명되지 않은 로컬 CRX 드래그 설치를 막을 수 있습니다. 실패하면 **압축해제 로드**를 사용하세요.
+> 최근 Chrome은 서명되지 않은 로컬 CRX 드래그 설치를 막을 수 있습니다 (`CRX_REQUIRED_PROOF_MISSING`). 정상 동작입니다. **압축해제 로드**를 쓰거나, 아래 Web Store 항목을 추가하세요.
+
+### Chrome Web Store (공식 서명)
+
+로컬 CRX 서명만으로는 일반 Chrome 설치가 안 됩니다. Google 서명이 필요하면:
+
+1. `py scripts/pack_crx.py` → `dist/JRList.zip`
+2. [Chrome Web Store 개발자 콘솔](https://chrome.google.com/webstore/devconsole) → **새 항목**
+3. ZIP 업로드 후 심사 제출 (공개 또는 Unlisted)
+
+체크리스트·설명 문구·권한 사유:
+
+- [docs/chrome-web-store.md](./docs/chrome-web-store.md)
+- [PRIVACY.md](./PRIVACY.md)
 
 ---
 
