@@ -45,7 +45,15 @@ Helper for **authorized** penetration testing, bug bounty, and frontend recon.
 
 ## Install
 
-### Recommended — Load unpacked
+### Chrome Web Store
+
+*Listing under review / link coming soon.*
+
+<!-- Replace with the public Chrome Web Store URL when available:
+[Install from Chrome Web Store](https://chromewebstore.google.com/detail/...)
+-->
+
+### From source (Load unpacked)
 
 ```bash
 git clone https://github.com/KaiHT-Ladiant/JRList.git
@@ -56,16 +64,11 @@ cd JRList
 2. Enable **Developer mode**
 3. **Load unpacked** → select this repository root (`manifest.json`)
 
-### Releases (CRX / ZIP)
+### Releases
 
 Download from [Releases](https://github.com/KaiHT-Ladiant/JRList/releases).
 
-| File | Notes |
-|------|--------|
-| `JRList.zip` | Prefer for Web Store upload / unpack |
-| `JRList.crx` | Locally signed archive only |
-
-> Installing a non–Web Store `.crx` often fails with **`CRX_REQUIRED_PROOF_MISSING`**. That is Chrome policy, not a broken file. Use **Load unpacked**, or install a Web Store–published build when available.
+> Local `.crx` files are not Web Store–signed. Chrome may show **`CRX_REQUIRED_PROOF_MISSING`**. Prefer the Store listing (when live) or **Load unpacked**.
 
 ---
 
@@ -100,17 +103,9 @@ py scripts/pack_crx.py
 
 | Output | Description |
 |--------|-------------|
-| `dist/JRList.zip` | Extension package (Web Store upload) |
+| `dist/JRList.zip` | Extension package |
 | `dist/JRList.crx` | Locally signed CRX3 |
 | `keys/extension.pem` | Signing key — **never commit or share** |
-
-Optional store assets (local only, under `dist/store/`):
-
-```bash
-py scripts/prepare_store_assets.py
-```
-
-Web Store listing checklist: [docs/chrome-web-store.md](./docs/chrome-web-store.md)
 
 ---
 
@@ -129,9 +124,7 @@ JRList/
 ├── assets/cover.png
 ├── scripts/
 │   ├── pack_crx.py
-│   ├── generate_icons.py
-│   └── prepare_store_assets.py
-├── docs/chrome-web-store.md
+│   └── generate_icons.py
 ├── PRIVACY.md
 ├── README.md
 ├── README.ko.md

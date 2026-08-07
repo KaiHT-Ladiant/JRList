@@ -45,7 +45,15 @@
 
 ## 설치
 
-### 권장 — 압축해제 로드
+### Chrome Web Store
+
+*심사 중 / 링크는 공개되면 여기에 추가 예정.*
+
+<!-- 공개 URL이 나오면 아래로 교체:
+[Chrome Web Store에서 설치](https://chromewebstore.google.com/detail/...)
+-->
+
+### 소스에서 설치 (압축해제 로드)
 
 ```bash
 git clone https://github.com/KaiHT-Ladiant/JRList.git
@@ -56,16 +64,11 @@ cd JRList
 2. **개발자 모드** ON
 3. **압축해제된 확장 프로그램을 로드합니다** → 저장소 루트 선택
 
-### Releases (CRX / ZIP)
+### Releases
 
 [Releases](https://github.com/KaiHT-Ladiant/JRList/releases)에서 다운로드합니다.
 
-| 파일 | 비고 |
-|------|------|
-| `JRList.zip` | Web Store 업로드 / 압축 해제용 |
-| `JRList.crx` | 로컬 서명 아카이브 |
-
-> Web Store 밖 `.crx`는 **`CRX_REQUIRED_PROOF_MISSING`** 이 날 수 있습니다. Chrome 정책이며 파일이 깨진 것이 아닙니다. **압축해제 로드**를 쓰거나, Web Store에 게시된 빌드를 설치하세요.
+> 로컬 `.crx`는 Web Store 서명이 없어 **`CRX_REQUIRED_PROOF_MISSING`** 이 날 수 있습니다. Store 게시본(공개 후) 또는 **압축해제 로드**를 권장합니다.
 
 ---
 
@@ -100,17 +103,9 @@ py scripts/pack_crx.py
 
 | 출력 | 설명 |
 |------|------|
-| `dist/JRList.zip` | 확장 패키지 (Web Store 업로드) |
+| `dist/JRList.zip` | 확장 패키지 |
 | `dist/JRList.crx` | 로컬 서명 CRX3 |
 | `keys/extension.pem` | 서명키 — **커밋/공유 금지** |
-
-스토어 에셋(로컬 `dist/store/`):
-
-```bash
-py scripts/prepare_store_assets.py
-```
-
-체크리스트: [docs/chrome-web-store.md](./docs/chrome-web-store.md)
 
 ---
 
@@ -129,9 +124,7 @@ JRList/
 ├── assets/cover.png
 ├── scripts/
 │   ├── pack_crx.py
-│   ├── generate_icons.py
-│   └── prepare_store_assets.py
-├── docs/chrome-web-store.md
+│   └── generate_icons.py
 ├── PRIVACY.md
 ├── README.md
 ├── README.ko.md
