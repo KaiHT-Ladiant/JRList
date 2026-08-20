@@ -17,6 +17,7 @@
 </p>
 
 <p align="center">
+  <a href="https://chromewebstore.google.com/detail/jrlist/hnpipndkccnolpkngcbkdangkcgpidgp">Chrome Web Store</a> ·
   <a href="./README.ko.md">한국어</a> ·
   <a href="https://github.com/KaiHT-Ladiant/JRList/releases">Releases</a> ·
   <a href="./PRIVACY.md">Privacy Policy</a>
@@ -47,11 +48,7 @@ Helper for **authorized** penetration testing, bug bounty, and frontend recon.
 
 ### Chrome Web Store
 
-*Listing under review / link coming soon.*
-
-<!-- Replace with the public Chrome Web Store URL when available:
-[Install from Chrome Web Store](https://chromewebstore.google.com/detail/...)
--->
+[Install from Chrome Web Store](https://chromewebstore.google.com/detail/jrlist/hnpipndkccnolpkngcbkdangkcgpidgp)
 
 ### From source (Load unpacked)
 
@@ -68,7 +65,7 @@ cd JRList
 
 Download from [Releases](https://github.com/KaiHT-Ladiant/JRList/releases).
 
-> Local `.crx` files are not Web Store–signed. Chrome may show **`CRX_REQUIRED_PROOF_MISSING`**. Prefer the Store listing (when live) or **Load unpacked**.
+> Local `.crx` files are not Web Store–signed. Chrome may show **`CRX_REQUIRED_PROOF_MISSING`**. Prefer the [Chrome Web Store](https://chromewebstore.google.com/detail/jrlist/hnpipndkccnolpkngcbkdangkcgpidgp) listing or **Load unpacked**.
 
 ---
 

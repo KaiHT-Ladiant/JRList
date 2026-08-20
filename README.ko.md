@@ -17,6 +17,7 @@
 </p>
 
 <p align="center">
+  <a href="https://chromewebstore.google.com/detail/jrlist/hnpipndkccnolpkngcbkdangkcgpidgp">Chrome Web Store</a> ·
   <a href="./README.md">English</a> ·
   <a href="https://github.com/KaiHT-Ladiant/JRList/releases">Releases</a> ·
   <a href="./PRIVACY.md">개인정보처리방침</a>
@@ -47,11 +48,7 @@
 
 ### Chrome Web Store
 
-*심사 중 / 링크는 공개되면 여기에 추가 예정.*
-
-<!-- 공개 URL이 나오면 아래로 교체:
-[Chrome Web Store에서 설치](https://chromewebstore.google.com/detail/...)
--->
+[Chrome Web Store에서 설치](https://chromewebstore.google.com/detail/jrlist/hnpipndkccnolpkngcbkdangkcgpidgp)
 
 ### 소스에서 설치 (압축해제 로드)
 
@@ -68,7 +65,7 @@ cd JRList
 
 [Releases](https://github.com/KaiHT-Ladiant/JRList/releases)에서 다운로드합니다.
 
-> 로컬 `.crx`는 Web Store 서명이 없어 **`CRX_REQUIRED_PROOF_MISSING`** 이 날 수 있습니다. Store 게시본(공개 후) 또는 **압축해제 로드**를 권장합니다.
+> 로컬 `.crx`는 Web Store 서명이 없어 **`CRX_REQUIRED_PROOF_MISSING`** 이 날 수 있습니다. [Chrome Web Store](https://chromewebstore.google.com/detail/jrlist/hnpipndkccnolpkngcbkdangkcgpidgp) 게시본 또는 **압축해제 로드**를 권장합니다.
 
 ---
 
