@@ -12,7 +12,7 @@
 
 <p align="center">
   <a href="https://github.com/KaiHT-Ladiant/JRList/releases"><img alt="Release" src="https://img.shields.io/github/v/release/KaiHT-Ladiant/JRList?include_prereleases&label=release" /></a>
-  <a href="https://img.shields.io/badge/version-1.3.2-blue.svg"><img alt="Version" src="https://img.shields.io/badge/version-1.3.2-blue.svg" /></a>
+  <a href="https://img.shields.io/badge/version-1.3.3-blue.svg"><img alt="Version" src="https://img.shields.io/badge/version-1.3.3-blue.svg" /></a>
   <a href="./LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg" /></a>
   <a href="./PRIVACY.md"><img alt="Privacy" src="https://img.shields.io/badge/privacy-policy-important" /></a>
 </p>
@@ -32,7 +32,11 @@ Helper for **authorized** penetration testing, bug bounty, and frontend recon.
 
 ---
 
-## What's new in 1.3.2
+## What's new in 1.3.3
+
+- Filter SVG/VML drawing-path junk mistaken for URLs (`/m,l,21600r21600,...`)
+
+### 1.3.2
 
 - Filter JS template-literal junk in URLs (`${window.location...}`, `$%7B...%7D`, …)
 
