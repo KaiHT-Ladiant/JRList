@@ -12,7 +12,7 @@
 
 <p align="center">
   <a href="https://github.com/KaiHT-Ladiant/JRList/releases"><img alt="Release" src="https://img.shields.io/github/v/release/KaiHT-Ladiant/JRList?include_prereleases&label=release" /></a>
-  <a href="https://img.shields.io/badge/version-1.3.0-blue.svg"><img alt="Version" src="https://img.shields.io/badge/version-1.3.0-blue.svg" /></a>
+  <a href="https://img.shields.io/badge/version-1.3.1-blue.svg"><img alt="Version" src="https://img.shields.io/badge/version-1.3.1-blue.svg" /></a>
   <a href="./LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg" /></a>
   <a href="./PRIVACY.md"><img alt="Privacy" src="https://img.shields.io/badge/privacy-policy-important" /></a>
 </p>
@@ -32,7 +32,11 @@ Helper for **authorized** penetration testing, bug bounty, and frontend recon.
 
 ---
 
-## What's new in 1.3.0
+## What's new in 1.3.1
+
+- Filter minified placeholder junk (`{e}`, `/{e}`, `%7Be%7D`, …) that was resolving into fake page URLs
+
+### 1.3.0
 
 - Popup stays open while you copy URLs or open them in a background tab
 - Last scan result and filters restore from session storage

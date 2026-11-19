@@ -12,7 +12,7 @@
 
 <p align="center">
   <a href="https://github.com/KaiHT-Ladiant/JRList/releases"><img alt="Release" src="https://img.shields.io/github/v/release/KaiHT-Ladiant/JRList?include_prereleases&label=release" /></a>
-  <a href="https://img.shields.io/badge/version-1.3.0-blue.svg"><img alt="Version" src="https://img.shields.io/badge/version-1.3.0-blue.svg" /></a>
+  <a href="https://img.shields.io/badge/version-1.3.1-blue.svg"><img alt="Version" src="https://img.shields.io/badge/version-1.3.1-blue.svg" /></a>
   <a href="./LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg" /></a>
   <a href="./PRIVACY.md"><img alt="Privacy" src="https://img.shields.io/badge/privacy-policy-important" /></a>
 </p>
@@ -32,7 +32,11 @@
 
 ---
 
-## 1.3.0 변경점
+## 1.3.1 변경점
+
+- 미니파이 플레이스홀더 오탐 제거 (`{e}`, `/{e}`, `%7Be%7D` 등 → 가짜 페이지 URL로 붙던 문제)
+
+### 1.3.0
 
 - URL 복사·백그라운드 탭 열기 시 **팝업 유지**
 - 마지막 스캔 결과·필터를 세션에서 복원
