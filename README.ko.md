@@ -12,7 +12,7 @@
 
 <p align="center">
   <a href="https://github.com/KaiHT-Ladiant/JRList/releases"><img alt="Release" src="https://img.shields.io/github/v/release/KaiHT-Ladiant/JRList?include_prereleases&label=release" /></a>
-  <a href="https://img.shields.io/badge/version-1.3.1-blue.svg"><img alt="Version" src="https://img.shields.io/badge/version-1.3.1-blue.svg" /></a>
+  <a href="https://img.shields.io/badge/version-1.3.2-blue.svg"><img alt="Version" src="https://img.shields.io/badge/version-1.3.2-blue.svg" /></a>
   <a href="./LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg" /></a>
   <a href="./PRIVACY.md"><img alt="Privacy" src="https://img.shields.io/badge/privacy-policy-important" /></a>
 </p>
@@ -32,7 +32,11 @@
 
 ---
 
-## 1.3.1 변경점
+## 1.3.2 변경점
+
+- JS 템플릿 리터럴 오탐 제거 (`${window.location...}`, `$%7B...%7D` 등)
+
+### 1.3.1
 
 - 미니파이 플레이스홀더 오탐 제거 (`{e}`, `/{e}`, `%7Be%7D` 등 → 가짜 페이지 URL로 붙던 문제)
 
