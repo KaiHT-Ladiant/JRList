@@ -7,7 +7,7 @@
 <p align="center">
   <strong>J</strong>S URL <strong>R</strong>econ <strong>List</strong><br />
   Chrome Extension (Manifest V3) that extracts URLs, routes, and API paths from<br />
-  <strong>Nuxt.js</strong> · <strong>Vue.js</strong> · <strong>Next.js</strong> pages
+  <strong>Nuxt</strong> · <strong>Vue</strong> · <strong>Next</strong> · <strong>Node</strong> pages
 </p>
 
 <p align="center">
@@ -35,10 +35,11 @@ Helper for **authorized** penetration testing, bug bounty, and frontend recon.
 
 | Area | What JRList does |
 |------|------------------|
-| Frameworks | Detects Nuxt / Vue / Next (`__NUXT__`, `__NEXT_DATA__`, Vue Router, `__next_f`, …) |
+| Frameworks | Detects Nuxt / Vue / Next / Node (`__NUXT__`, `__NEXT_DATA__`, `process.env`, Express headers, …) |
 | Sources | DOM attributes, inline scripts, comments, framework payloads, `_nuxt` / `_next` bundles |
 | baseURL | Joins relative paths using `baseURL` / `apiBase` / Nuxt `app.baseURL` / Next `basePath` (avoids duplicate joins like `/v1/v1`) |
-| Categories | `base`, `api`, `nuxt`, `next`, `auth`, `admin`, `absolute`, `path` |
+| Categories | `base`, `api`, `nuxt`, `next`, `node`, `auth`, `admin`, `absolute`, `path` |
+| JS format | `{}` on `.js` URLs — fetch + **indent-only** pretty-print (not deobfuscation) |
 | Export | Search / filter, clipboard copy, TXT / JSON |
 | Injection | On-demand only when you click **Scan** (no always-on content scripts) |
 
@@ -75,6 +76,13 @@ Download from [Releases](https://github.com/KaiHT-Ladiant/JRList/releases).
 2. Click the **JRList** toolbar icon  
 3. Click **Scan**  
 4. Filter and export (Copy / TXT / JSON)
+
+| Action | Description |
+|--------|-------------|
+| Click a URL | Copy to clipboard (**popup stays open**) |
+| ↗ / Ctrl·⌘+click | Open in a background tab (**popup stays open**) |
+| `{}` button | Fetch JS and show indent-only pretty-print in the popup |
+| Reopen popup | Restores last scan results and filters from session storage |
 
 | Option | Description |
 |--------|-------------|
@@ -158,7 +166,7 @@ Issues and pull requests are welcome.
 
 ### Contributors
 
-- Community contributors via pull requests
+- [KaiHT-Ladiant](https://github.com/KaiHT-Ladiant)
 
 ---
 

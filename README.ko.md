@@ -6,7 +6,7 @@
 
 <p align="center">
   <strong>J</strong>S URL <strong>R</strong>econ <strong>List</strong><br />
-  Nuxt.js · Vue.js · Next.js 페이지에서 URL·라우트·API 경로를 추출하는<br />
+  Nuxt · Vue · Next · Node 페이지에서 URL·라우트·API 경로를 추출하는<br />
   Chrome Extension (Manifest V3)
 </p>
 
@@ -35,10 +35,11 @@
 
 | 구분 | 내용 |
 |------|------|
-| 프레임워크 | Nuxt / Vue / Next 감지 (`__NUXT__`, `__NEXT_DATA__`, Vue Router, `__next_f` 등) |
+| 프레임워크 | Nuxt / Vue / Next / Node 감지 (`__NUXT__`, `__NEXT_DATA__`, `process.env`, Express 헤더 등) |
 | 수집 소스 | DOM, 인라인 JS, 주석, 프레임워크 payload, `_nuxt` / `_next` 번들 |
 | baseURL | `baseURL` / `apiBase` / Nuxt `app.baseURL` / Next `basePath`로 상대경로 결합 (`/v1/v1` 중복 방지) |
-| 카테고리 | `base`, `api`, `nuxt`, `next`, `auth`, `admin`, `absolute`, `path` |
+| 카테고리 | `base`, `api`, `nuxt`, `next`, `node`, `auth`, `admin`, `absolute`, `path` |
+| JS 정리 | `.js` URL의 `{}` 버튼 → 가져와서 **들여쓰기만** 정리 (난독화 해제 아님) |
 | 내보내기 | 검색·필터, 클립보드, TXT / JSON |
 | 주입 | **스캔** 클릭 시에만 (상시 content script 없음) |
 
@@ -75,6 +76,13 @@ cd JRList
 2. **JRList** 아이콘 클릭  
 3. **스캔**  
 4. 필터 후 복사 / TXT / JSON
+
+| 동작 | 설명 |
+|------|------|
+| URL 클릭 | 클립보드에 복사 (**팝업이 닫히지 않음**) |
+| ↗ 버튼 / Ctrl·⌘+클릭 | 백그라운드 탭으로 열기 (**팝업 유지**) |
+| `{}` 버튼 | JS를 가져와 들여쓰기 정리 후 팝업에서 보기 |
+| 팝업 재오픈 | 마지막 스캔 결과·필터를 세션에서 복원 |
 
 | 옵션 | 설명 |
 |------|------|
@@ -158,7 +166,7 @@ Issue / PR 환영합니다.
 
 ### Contributors
 
-- Community contributors via pull requests
+- [KaiHT-Ladiant](https://github.com/KaiHT-Ladiant)
 
 ---
 

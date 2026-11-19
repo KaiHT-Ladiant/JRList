@@ -116,6 +116,73 @@
     }
   }
 
+  async function enrichNodeFramework(framework) {
+    const fw = framework || {};
+    const signals = Array.isArray(fw.nodeSignals) ? fw.nodeSignals.slice() : [];
+
+    try {
+      const res = await fetch(location.href, {
+        method: "GET",
+        credentials: "omit",
+        cache: "force-cache",
+      });
+      const powered = res.headers.get("x-powered-by") || "";
+      if (/express|nestjs|nest\.js|fastify|koa|node/i.test(powered)) {
+        signals.push("header:x-powered-by:" + powered.slice(0, 80));
+      }
+      const server = res.headers.get("server") || "";
+      if (/node|express/i.test(server)) {
+        signals.push("header:server:" + server.slice(0, 80));
+      }
+    } catch (_) {}
+
+    try {
+      const sample =
+        (document.documentElement?.innerHTML || "").slice(0, 40000) +
+        Array.from(document.querySelectorAll("script:not([src])"))
+          .slice(0, 8)
+          .map((el) => el.textContent || "")
+          .join("\n")
+          .slice(0, 40000);
+      const checks = [
+        [/process\.env\b/, "process.env"],
+        [/\b__dirname\b/, "__dirname"],
+        [/\b__filename\b/, "__filename"],
+        [/\bBuffer\.(?:from|alloc|isBuffer)\b/, "Buffer"],
+        [/\bmodule\.exports\b/, "module.exports"],
+        [/\brequire\s*\(/, "require("],
+        [/node_modules\//, "node_modules"],
+        [/\bexpress\b/i, "express"],
+        [/\b@nestjs\b/i, "nestjs"],
+        [/\bfastify\b/i, "fastify"],
+      ];
+      for (const [re, name] of checks) {
+        if (re.test(sample)) signals.push(name);
+      }
+    } catch (_) {}
+
+    fw.nodeSignals = Array.from(new Set(signals));
+    if (fw.nuxt || fw.next || fw.nodeSignals.length > 0) {
+      fw.node = true;
+    }
+    return fw;
+  }
+
+  async function fetchTextForView(url, limit) {
+    const max = Math.min(Number(limit) || 1_200_000, 1_500_000);
+    const abs = new URL(url, location.href).href;
+    const res = await fetch(abs, { credentials: "omit", cache: "force-cache" });
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const text = await res.text();
+    return {
+      ok: true,
+      url: abs,
+      truncated: text.length > max,
+      text: text.length > max ? text.slice(0, max) : text,
+      contentType: res.headers.get("content-type") || "",
+    };
+  }
+
   function applyBridge(map, bridge, baseOrigin, bases) {
     if (!bridge) return;
     if (bridge.payloads) {
@@ -212,11 +279,14 @@
     const bridge = opts.bridge || null;
 
     const htmlSnap = (document.documentElement?.innerHTML || "").slice(0, 12000);
-    const framework = bridge?.framework || {
+    let framework = bridge?.framework || {
       nuxt: /__nuxt|__NUXT__|data-nuxt/i.test(htmlSnap),
       vue: /data-v-|__nuxt|nuxt/i.test(htmlSnap),
       next: /__NEXT_DATA__|\/_next\/|data-nextjs/i.test(htmlSnap),
+      node: false,
+      nodeSignals: [],
     };
+    framework = await enrichNodeFramework(framework);
 
     // Nuxt app.baseURL / cdnURL 명시 추출
     try {
@@ -309,10 +379,13 @@
     };
 
     try {
-      chrome.storage.session.set({
+      const write = chrome.storage.session.set({
         lastScan: lastResult,
         lastScanTabHint: location.href,
       });
+      if (write && typeof write.then === "function") {
+        write.catch((err) => console.warn("[JRList] session save failed", err));
+      }
     } catch (_) {}
 
     return lastResult;
@@ -333,6 +406,18 @@
 
     if (msg.type === "SCAN") {
       runScan(msg.options)
+        .then((result) => sendResponse(result))
+        .catch((err) =>
+          sendResponse({
+            ok: false,
+            error: String(err && err.message ? err.message : err),
+          })
+        );
+      return true;
+    }
+
+    if (msg.type === "FETCH_TEXT") {
+      fetchTextForView(msg.url, msg.limit)
         .then((result) => sendResponse(result))
         .catch((err) =>
           sendResponse({

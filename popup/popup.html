@@ -11,7 +11,7 @@
         <strong class="title">JRList</strong>
         <span id="frameworkBadges" class="badges"></span>
       </div>
-      <p class="subtitle">JS URL Recon List · Nuxt / Vue / Next</p>
+      <p class="subtitle">JS URL Recon List · Nuxt / Vue / Next / Node</p>
 
       <div class="toolbar">
         <button id="scanBtn" class="btn primary" type="button">스캔</button>
@@ -28,6 +28,7 @@
           <option value="api">API</option>
           <option value="nuxt">Nuxt</option>
           <option value="next">Next</option>
+          <option value="node">Node</option>
           <option value="auth">Auth</option>
           <option value="admin">Admin</option>
           <option value="absolute">Absolute</option>
@@ -40,7 +41,7 @@
         JS 번들 스캔
       </label>
 
-      <div id="status" class="status">현재 탭을 연 뒤 스캔을 누르세요.</div>
+      <div id="status" class="status">현재 탭을 연 뒤 스캔을 누르세요. URL 클릭=복사, ↗=백그라운드 탭(팝업 유지).</div>
       <div id="stats" class="stats hidden"></div>
     </div>
 
@@ -48,10 +49,23 @@
       <ul id="urlList" class="url-list"></ul>
     </div>
 
+    <div id="viewPanel" class="view-panel hidden" aria-hidden="true">
+      <div class="view-head">
+        <strong id="viewTitle" class="view-title">JS 보기</strong>
+        <div class="view-actions">
+          <button id="viewCopyBtn" class="btn" type="button">복사</button>
+          <button id="viewCloseBtn" class="btn" type="button">닫기</button>
+        </div>
+      </div>
+      <div id="viewMeta" class="view-meta"></div>
+      <pre id="viewCode" class="view-code"></pre>
+    </div>
+
     <div class="footer">
       <span id="pageUrl" class="page-url"></span>
     </div>
 
+    <script src="../lib/js-format.js"></script>
     <script src="popup.js"></script>
   </body>
 </html>

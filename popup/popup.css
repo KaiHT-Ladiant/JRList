@@ -10,6 +10,7 @@ body {
 }
 
 body {
+  position: relative;
   display: flex;
   flex-direction: column;
   max-height: 560px;
@@ -227,6 +228,10 @@ body {
   color: #e8e8e8;
   background: rgba(255, 255, 255, 0.12);
 }
+.cat.node {
+  color: #b8f0a8;
+  background: rgba(104, 180, 80, 0.18);
+}
 .cat.auth {
   color: #ffe29a;
   background: rgba(230, 184, 77, 0.15);
@@ -236,17 +241,136 @@ body {
   background: rgba(232, 93, 93, 0.15);
 }
 
+.url-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
 .url-text {
+  appearance: none;
   display: block;
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
   font-family: Consolas, "Courier New", monospace;
   font-size: 11px;
+  line-height: 1.35;
   word-break: break-all;
   color: #e8eef4;
-  text-decoration: none;
 }
 
 .url-text:hover {
   color: #3d9cf0;
+}
+
+.url-open {
+  appearance: none;
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #2f3b4a;
+  border-radius: 6px;
+  background: #121820;
+  color: #8b9aab;
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.url-open:hover,
+.url-format:hover {
+  color: #e8eef4;
+  border-color: #3d9cf0;
+  background: #1a222c;
+}
+
+.url-format {
+  appearance: none;
+  flex-shrink: 0;
+  min-width: 26px;
+  height: 26px;
+  margin: 0;
+  padding: 0 5px;
+  border: 1px solid #2f3b4a;
+  border-radius: 6px;
+  background: #121820;
+  color: #8b9aab;
+  font-size: 11px;
+  line-height: 1;
+  cursor: pointer;
+  font-family: Consolas, "Courier New", monospace;
+}
+
+.view-panel {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  background: #0f1419;
+}
+
+.view-panel.hidden {
+  display: none !important;
+}
+
+.view-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid #2f3b4a;
+  flex-shrink: 0;
+}
+
+.view-title {
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.view-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.view-actions .btn {
+  min-height: 30px;
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+.view-meta {
+  padding: 6px 12px;
+  color: #8b9aab;
+  font-size: 10px;
+  border-bottom: 1px solid #2f3b4a;
+  flex-shrink: 0;
+  word-break: break-all;
+}
+
+.view-code {
+  margin: 0;
+  padding: 10px 12px;
+  flex: 1;
+  overflow: auto;
+  background: #121820;
+  color: #d7e2ec;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 10px;
+  line-height: 1.45;
+  white-space: pre;
 }
 
 .sources {
