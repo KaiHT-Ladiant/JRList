@@ -12,6 +12,7 @@
 
 <p align="center">
   <a href="https://github.com/KaiHT-Ladiant/JRList/releases"><img alt="Release" src="https://img.shields.io/github/v/release/KaiHT-Ladiant/JRList?include_prereleases&label=release" /></a>
+  <a href="https://img.shields.io/badge/version-1.3.0-blue.svg"><img alt="Version" src="https://img.shields.io/badge/version-1.3.0-blue.svg" /></a>
   <a href="./LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg" /></a>
   <a href="./PRIVACY.md"><img alt="Privacy" src="https://img.shields.io/badge/privacy-policy-important" /></a>
 </p>
@@ -28,6 +29,15 @@
 **허가된** 펜테스트·버그바운티·프론트 리콘용 보조 도구입니다.
 
 > 허가받은 대상에만 사용하세요.
+
+---
+
+## 1.3.0 변경점
+
+- URL 복사·백그라운드 탭 열기 시 **팝업 유지**
+- 마지막 스캔 결과·필터를 세션에서 복원
+- **Node.js** 감지 (`process.env`, CJS/`require`, Express·Nest·Fastify 시그널)
+- `.js` URL의 `{}` — 가져와 **들여쓰기만** 정리 (난독화 해제 아님)
 
 ---
 
@@ -66,6 +76,11 @@ cd JRList
 
 [Releases](https://github.com/KaiHT-Ladiant/JRList/releases)에서 다운로드합니다.
 
+| 파일 | 용도 |
+|------|------|
+| `JRList.zip` | **Chrome Web Store** 업로드 / 로컬 압축해제 |
+| `JRList.crx` | 로컬 패키징 테스트용 |
+
 > 로컬 `.crx`는 Web Store 서명이 없어 **`CRX_REQUIRED_PROOF_MISSING`** 이 날 수 있습니다. [Chrome Web Store](https://chromewebstore.google.com/detail/jrlist/hnpipndkccnolpkngcbkdangkcgpidgp) 게시본 또는 **압축해제 로드**를 권장합니다.
 
 ---
@@ -95,7 +110,8 @@ cd JRList
 1. 팝업이 활성 탭에 content script 주입  
 2. MAIN world에서 프레임워크 전역 수집 (CSP 대응)  
 3. DOM / 스크립트 / 번들 파싱 및 baseURL 결합  
-4. Nuxt `_payload.json`, Next `/_next/data/...` 등은 **실제 참조가 있을 때만** 추가
+4. Node 시그널(페이지 텍스트·폴리필·응답 헤더) 수집  
+5. Nuxt `_payload.json`, Next `/_next/data/...` 등은 **실제 참조가 있을 때만** 추가
 
 ---
 
@@ -108,7 +124,7 @@ py scripts/pack_crx.py
 
 | 출력 | 설명 |
 |------|------|
-| `dist/JRList.zip` | 확장 패키지 |
+| `dist/JRList.zip` | 확장 패키지 (**Chrome Web Store 업로드용**) |
 | `dist/JRList.crx` | 로컬 서명 CRX3 |
 | `keys/extension.pem` | 서명키 — **커밋/공유 금지** |
 
@@ -123,13 +139,15 @@ JRList/
 ├── content/content.js
 ├── lib/
 │   ├── url-parser.js
-│   └── page-bridge.js
+│   ├── page-bridge.js
+│   └── js-format.js
 ├── popup/
 ├── icons/
 ├── assets/cover.png
 ├── scripts/
 │   ├── pack_crx.py
-│   └── generate_icons.py
+│   ├── generate_icons.py
+│   └── prepare_store_assets.py
 ├── PRIVACY.md
 ├── README.md
 ├── README.ko.md
@@ -156,6 +174,7 @@ JRList/
 
 - Cross-origin JS는 CORS로 못 읽을 수 있음  
 - 난독화·런타임 조합 URL은 놓칠 수 있음  
+- `{}` 보기는 들여쓰기만 — **난독화 해제 아님**  
 - AV/EDR 오탐 가능  
 
 ---
